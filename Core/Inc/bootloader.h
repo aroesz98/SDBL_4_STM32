@@ -9,7 +9,7 @@
 #define INC_BOOTLOADER_H_
 
 #define SECTOR_SIZE 1024
-#define APP_ADDRESS (uint32_t)0x08008000
+#define APP_ADDRESS (uint32_t)0x08004000
 
 #include "main.h"
 
@@ -18,8 +18,8 @@ FIL app;
 FRESULT fr;
 
 uint8_t pageData[1024];		//SD Card buffer for readed data
-uint16_t erase_page = 2;	//Start sector to flash erase (Offset 0x8000)
-uint32_t current_page = 32; //Start flashing from page 32 (Offset 0x8000)
+uint16_t erase_page = 1;	//Start sector to flash erase (Offset 0x8000)
+uint32_t current_page = 16; //Start flashing from page 32 (Offset 0x8000)
 
 typedef void __attribute__((noreturn)) (*pFunction)(void);		//Function pointer typedef
 
@@ -104,7 +104,7 @@ static void writeFlashSector(uint32_t currentPage)
 	FLASH_EraseInitTypeDef EraseInit;
 	HAL_FLASH_Unlock();
 
-	if ((currentPage == 32) || (currentPage == 48) || (currentPage == 64) || (currentPage % 128 == 0)) {
+	if ((currentPage == 16) || (currentPage == 32) || (currentPage == 48) || (currentPage == 64) || (currentPage % 128 == 0)) {
 		EraseInit.TypeErase = FLASH_TYPEERASE_SECTORS;
 		EraseInit.VoltageRange  = FLASH_VOLTAGE_RANGE_3;
 		EraseInit.Banks = FLASH_BANK_1;

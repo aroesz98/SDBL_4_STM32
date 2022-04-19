@@ -45,7 +45,6 @@ extern SPI_HandleTypeDef 	hspi3;
 DSTATUS sdInit (BYTE pdrv);
 DSTATUS sdStatus (BYTE pdrv);
 DRESULT sdRead (BYTE pdrv, BYTE* buff, DWORD sector, UINT count);
-DRESULT sdWrite (BYTE pdrv, const BYTE* buff, DWORD sector, UINT count);
 DRESULT sdCtrl (BYTE pdrv, BYTE cmd, void* buff);
 
 #endif /* SD_DRV_H_ */

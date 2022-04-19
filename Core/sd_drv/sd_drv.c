@@ -111,37 +111,6 @@ static bool receiveBlock(BYTE *buff, UINT len)
 	return true;
 }
 
-static bool transmitBlock(const uint8_t *buff, BYTE token)
-{
-	uint8_t resp = 0;
-	uint8_t i = 0;
-
-	if (wait4ready() != 0xFF) return false;
-
-	transmitByte(token);
-
-	if (token != 0xFD)
-	{
-		transmitBuffer((uint8_t*)buff, 512);
-
-		receiveByte();
-		receiveByte();
-
-		while (i <= 64)
-		{
-			resp = receiveByte();
-
-			if ((resp & 0x1F) == 0x05) break;
-			i++;
-		}
-
-		while (receiveByte() == 0);
-	}
-
-	if ((resp & 0x1F) == 0x05) return true;
-	return false;
-}
-
 static BYTE writeCommand(BYTE cmd, uint32_t arg)
 {
 	uint8_t crc, res;
@@ -276,51 +245,6 @@ DRESULT sdRead(BYTE pdrv, BYTE* buff, DWORD sector, UINT count)
 	}
 
 	SD_CS_PORT->BSRR = SD_CS_PIN << 16U;
-	receiveByte();
-
-	return count ? RES_ERROR : RES_OK;
-}
-
-DRESULT sdWrite(BYTE pdrv, const BYTE* buff, DWORD sector, UINT count)
-{
-	if (pdrv || !count) return RES_PARERR;
-
-	if (Stat & STA_NOINIT) return RES_NOTRDY;
-
-	if (Stat & STA_PROTECT) return RES_WRPRT;
-
-	if (!(SDType & SD2)) sector *= 512;
-
-	SD_CS_PORT->BSRR = SD_CS_PIN << 16U;
-
-	if (count == 1)
-	{
-		if ((writeCommand(CMD24, sector) == 0) && transmitBlock(buff, 0xFE))
-			count = 0;
-	}
-	else
-	{
-		if (SDType & SD1)
-		{
-			writeCommand(CMD55, 0);
-			writeCommand(CMD23, count);
-		}
-
-		if (writeCommand(CMD25, sector) == 0)
-		{
-			do {
-				if(!transmitBlock(buff, 0xFC)) break;
-				buff += 512;
-			} while (--count);
-
-			if(!transmitBlock(0, 0xFD))
-			{
-				count = 1;
-			}
-		}
-	}
-
-	SD_CS_PORT->BSRR = SD_CS_PIN;
 	receiveByte();
 
 	return count ? RES_ERROR : RES_OK;

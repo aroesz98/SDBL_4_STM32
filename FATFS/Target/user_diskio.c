@@ -139,7 +139,7 @@ DRESULT USER_write (
 {
   /* USER CODE BEGIN WRITE */
   /* USER CODE HERE */
-    return sdWrite(pdrv, buff, sector, count);
+    return RES_OK;/*sdWrite(pdrv, buff, sector, count);*/
   /* USER CODE END WRITE */
 }
 #endif /* _USE_WRITE == 1 */

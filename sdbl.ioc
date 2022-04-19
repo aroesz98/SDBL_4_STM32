@@ -1,9 +1,14 @@
 #MicroXplorer Configuration settings - do not modify
-FATFS.IPParameters=_USE_LFN,_MAX_SS,_FS_EXFAT,_FS_LOCK
+FATFS.IPParameters=_USE_LFN,_MAX_SS,_FS_EXFAT,_FS_LOCK,_USE_MKFS,_USE_STRFUNC,_MAX_LFN,_FS_MINIMIZE,_FS_READONLY
 FATFS._FS_EXFAT=1
-FATFS._FS_LOCK=5
+FATFS._FS_LOCK=0
+FATFS._FS_MINIMIZE=2
+FATFS._FS_READONLY=1
+FATFS._MAX_LFN=64
 FATFS._MAX_SS=4096
 FATFS._USE_LFN=1
+FATFS._USE_MKFS=0
+FATFS._USE_STRFUNC=0
 File.Version=6
 GPIO.groupedBy=Group By Peripherals
 KeepUserPlacement=false
@@ -134,3 +139,4 @@ VP_FATFS_VS_Generic.Signal=FATFS_VS_Generic
 VP_SYS_VS_Systick.Mode=SysTick
 VP_SYS_VS_Systick.Signal=SYS_VS_Systick
 board=custom
+isbadioc=false

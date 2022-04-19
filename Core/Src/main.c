@@ -92,6 +92,7 @@ int main(void)
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
   uint32_t addr = APP_ADDRESS;
+
   /* Mount SD Card */
   fr = f_mount(&SDFat, USERPath, 1);
 

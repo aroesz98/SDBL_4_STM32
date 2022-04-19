@@ -14,4 +14,4 @@ to:
     
     FLASH    (rx)    : ORIGIN = 0x8008000,   LENGTH = 224K
     
-SPI3 is used by default. If you want to choose other change your project configuration than go to sd_drv.h. Than change used SPI and SD_CS pin.
+SPI3 is used by default. If you want to choose other spi/sd_cs_pin change your project configuration than go to sd_drv.h. Than change used SPI and SD_CS pin.

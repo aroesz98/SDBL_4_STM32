@@ -12,7 +12,7 @@ Than go to "STM32F401CCUX_FLASH.ld" or "STM32F411CEUX_FLASH.ld" and replace this
     
 to:
     
-    FLASH    (rx)    : ORIGIN = 0x8008000,   LENGTH = 224K
+    FLASH    (rx)    : ORIGIN = 0x8004000,   LENGTH = 240K
     
 SPI3 is used by default. If you want to choose other spi/sd_cs_pin change your project configuration and go to sd_drv.h.
 Make sure if your SPI line and SD_CS pin are correct.
